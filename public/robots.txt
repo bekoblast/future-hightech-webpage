@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gilded-alfajores-2c3f21.netlify.app/sitemap.xml

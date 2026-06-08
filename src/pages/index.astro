@@ -19,10 +19,8 @@ const navLinks = [
   <!-- =========================== NAV =========================== -->
   <header data-nav class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
     <div class="container-x flex items-center justify-between py-4">
-      <a href="#top" class="flex items-center gap-2">
-        <span class="wordmark text-2xl tracking-tight">
-          <span class="text-navy-700">FUTURE</span><span class="text-orange-500"> HITECH</span>
-        </span>
+      <a href="#top" class="flex items-center" aria-label="Future Hitech home">
+        <img src="/img/brand/logo-dark.png" alt="Future Hitech" class="h-7 md:h-8 w-auto" />
       </a>
       <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-navy-800">
         {navLinks.map(l => (
@@ -651,9 +649,7 @@ const navLinks = [
     <div class="container-x">
       <div class="flex flex-wrap items-center justify-between gap-6">
         <div>
-          <div class="wordmark text-xl">
-            <span class="text-white">FUTURE</span><span class="text-orange-500"> HITECH</span>
-          </div>
+          <img src="/img/brand/logo-light.png" alt="Future Hitech" class="h-7 w-auto" />
           <p class="text-xs mt-2 text-white/50">{company.legal} · © {new Date().getFullYear()}</p>
         </div>
         <div class="text-xs text-white/50">

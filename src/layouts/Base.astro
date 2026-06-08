@@ -5,12 +5,19 @@ import { company } from '../data/futurehitech';
 interface Props {
   title?: string;
   description?: string;
+  ogImage?: string;
 }
 
 const {
   title = `${company.name} — Mechanical, Electrical & Plumbing | Dubai`,
   description = company.pitch,
+  ogImage = '/og-image.jpg',
 } = Astro.props;
+
+// Resolve absolute URLs against the configured site (set in astro.config.mjs)
+const siteUrl = Astro.site ?? new URL('https://gilded-alfajores-2c3f21.netlify.app');
+const canonical = new URL(Astro.url.pathname, siteUrl).toString();
+const ogImageAbs = new URL(ogImage, siteUrl).toString();
 ---
 <!doctype html>
 <html lang="en">
@@ -19,12 +26,55 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#16345D" />
+    <meta name="format-detection" content="telephone=no" />
     <title>{title}</title>
 
+    <link rel="canonical" href={canonical} />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={company.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageAbs} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${company.name} — MEP Technical Services`} />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageAbs} />
+
+    <!-- Structured data: Local business -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'GeneralContractor',
+      name: company.legal,
+      alternateName: company.name,
+      description: company.pitch,
+      url: siteUrl.toString(),
+      logo: new URL('/img/brand/logo-dark.png', siteUrl).toString(),
+      image: ogImageAbs,
+      telephone: company.contact.phones,
+      email: company.contact.emails[0],
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Al Nasriya Building A, Office 203, Al Qusais Industrial First',
+        addressLocality: 'Dubai',
+        addressCountry: 'AE',
+      },
+      areaServed: 'AE',
+      serviceType: ['Mechanical Systems', 'Electrical Systems', 'Plumbing Systems', 'Energy Efficiency', 'Project Management'],
+    })} />
   </head>
   <body>
     <slot />
