@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-orange: #EF6822;
+  --brand-navy: #16345D;
+  --brand-navy-deep: #0A1321;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  @apply bg-white text-navy-900 font-sans antialiased;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+::selection { background: var(--brand-orange); color: white; }
+
+.container-x { @apply mx-auto w-full max-w-7xl px-6 md:px-10; }
+.text-balance { text-wrap: balance; }
+.text-pretty { text-wrap: pretty; }
+
+/* Wordmark — approximates the PDF's stylized "FUTURE HITECH" */
+.wordmark {
+  font-family: 'Bricolage Grotesque', Inter, sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+/* Reveal-on-scroll defaults (GSAP overrides) */
+[data-reveal] { opacity: 0; transform: translateY(24px); }
+[data-stagger] > * { opacity: 0; transform: translateY(20px); }
+
+/* Subtle grid overlay for dark sections */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+}

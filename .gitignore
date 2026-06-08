@@ -1,0 +1,13 @@
+node_modules
+dist
+.astro
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+
+# Source material (kept local, not committed)
+_input/
+HITECH 20241 Copy.pdf
+*.pdf
