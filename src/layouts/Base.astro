@@ -68,7 +68,7 @@ const ogImageAbs = new URL(ogImage, siteUrl).toString();
       email: company.contact.emails[0],
       address: {
         '@type': 'PostalAddress',
-        streetAddress: 'Al Nasriya Building A, Office 203, Al Qusais Industrial First',
+        streetAddress: 'Office #1306, Saheel Tower 2, Al Nahda 1',
         addressLocality: 'Dubai',
         addressCountry: 'AE',
       },
@@ -131,15 +131,33 @@ const ogImageAbs = new URL(ogImage, siteUrl).toString();
         });
       });
 
-      // Nav shadow on scroll
+      // Nav state-awareness — transparent over the hero, solid white frosted
+      // once the user has scrolled past it. Driven by IntersectionObserver
+      // so the threshold matches the *actual* hero size on any viewport.
       const nav = document.querySelector<HTMLElement>('[data-nav]');
+      const hero = document.querySelector<HTMLElement>('#top');
+      const SCROLLED_CLASSES = ['shadow-lg', 'bg-white/95', 'backdrop-blur', 'is-scrolled'] as const;
+
       if (nav) {
-        const update = () => {
-          if (window.scrollY > 12) nav.classList.add('shadow-lg', 'bg-white/95', 'backdrop-blur');
-          else nav.classList.remove('shadow-lg', 'bg-white/95', 'backdrop-blur');
+        const setScrolled = (on: boolean) => {
+          if (on) nav.classList.add(...SCROLLED_CLASSES);
+          else    nav.classList.remove(...SCROLLED_CLASSES);
         };
-        update();
-        window.addEventListener('scroll', update, { passive: true });
+
+        if (hero && 'IntersectionObserver' in window) {
+          const heroObserver = new IntersectionObserver(
+            ([entry]) => setScrolled(!entry.isIntersecting),
+            // Trigger slightly before the hero fully exits so the swap
+            // happens as the nav crosses out of the orange band.
+            { rootMargin: '-64px 0px 0px 0px' }
+          );
+          heroObserver.observe(hero);
+        } else {
+          // Fallback: switch after one viewport of scroll
+          const update = () => setScrolled(window.scrollY > window.innerHeight * 0.8);
+          update();
+          window.addEventListener('scroll', update, { passive: true });
+        }
       }
     </script>
   </body>

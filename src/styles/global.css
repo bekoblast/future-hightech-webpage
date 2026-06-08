@@ -40,3 +40,112 @@ body {
     linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
   background-size: 56px 56px;
 }
+
+/* ---------------------------------------------------------------------------
+   Nav state: "over hero" (transparent, white logo + links)
+   vs. "scrolled past hero" (white frosted bg, dark logo + navy links).
+   The .is-scrolled class is toggled by Base.astro via IntersectionObserver.
+--------------------------------------------------------------------------- */
+[data-nav] .nav-logo-light,
+[data-nav] .nav-logo-dark {
+  transition: opacity 250ms ease;
+}
+[data-nav] .nav-logo-light { opacity: 1; }
+[data-nav] .nav-logo-dark  { opacity: 0; }
+[data-nav].is-scrolled .nav-logo-light { opacity: 0; }
+[data-nav].is-scrolled .nav-logo-dark  { opacity: 1; }
+
+[data-nav] .nav-link {
+  color: rgba(255, 255, 255, 0.95);
+  transition: color 250ms ease;
+}
+[data-nav] .nav-link:hover { color: #ffd2b0; }
+[data-nav].is-scrolled .nav-link { color: #0f2547; /* navy-800 */ }
+[data-nav].is-scrolled .nav-link:hover { color: #EF6822; /* orange-500 */ }
+
+[data-nav] .nav-cta-mobile {
+  color: #ffffff;
+  transition: color 250ms ease;
+}
+[data-nav].is-scrolled .nav-cta-mobile { color: #EF6822; }
+
+/* ---------------------------------------------------------------------------
+   Animated brand-color border (navy #0A1321 ↔ orange #EF6822 conic rotation).
+   Applied via `.brand-border` / `.brand-border-3` to existing photo containers
+   without changing markup. Uses an ::after pseudo-element with the mask trick
+   so only a thick ring around the edge is painted, leaving the photo intact.
+   `@property --brand-angle` lets the CSS variable animate as an <angle>
+   (Chromium / Safari 16+); other browsers fall back to a static brand gradient.
+--------------------------------------------------------------------------- */
+@property --brand-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes brand-spin {
+  to { --brand-angle: 360deg; }
+}
+
+.brand-border,
+.brand-border-3 {
+  position: relative;
+  isolation: isolate;
+}
+
+.brand-border::after,
+.brand-border-3::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 4px;
+  background: conic-gradient(
+    from var(--brand-angle, 0deg),
+    #0A1321 0deg,
+    #EF6822 90deg,
+    #0A1321 180deg,
+    #EF6822 270deg,
+    #0A1321 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  animation: brand-spin 6s linear infinite;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Even thicker ring + slower rotation for featured photos */
+.brand-border-3::after {
+  padding: 6px;
+  animation-duration: 8s;
+}
+
+/* Respect users who want less motion */
+@media (prefers-reduced-motion: reduce) {
+  .brand-border::after,
+  .brand-border-3::after {
+    animation: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Animated brand-color icons — same navy ↔ orange cycle as the photo borders.
+   Apply `.brand-icon` to the icon chip wrapper (since the SVG strokes use
+   `currentColor`, animating `color` on the parent cascades into the icon).
+--------------------------------------------------------------------------- */
+@keyframes brand-icon-cycle {
+  0%, 100% { color: #EF6822; }
+  50%      { color: #0A1321; }
+}
+
+.brand-icon {
+  animation: brand-icon-cycle 4s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-icon { animation: none; }
+}

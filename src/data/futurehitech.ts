@@ -11,11 +11,11 @@ export const company = {
   projectsExecuted: 10,
   satisfiedCustomers: 40,
   contact: {
-    address: 'Al Nasriya Building A, Office 203, Al Qusais Industrial First, Dubai – UAE',
-    phones: ['+971 54 223 4463', '+971 52 362 0668'],
+    address: 'Office #1306, Saheel Tower 2, Al Nahda 1, Dubai – UAE',
+    phones: ['+971 50 226 4282'],
     emails: ['info@future-hitech.com', 'sales@future-hitech.com'],
     website: 'www.future-hitech.com',
-    whatsapp: '+971523620668',
+    whatsapp: '+971502264282',
   },
 };
 
