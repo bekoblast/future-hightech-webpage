@@ -77,6 +77,9 @@ const ogImageAbs = new URL(ogImage, siteUrl).toString();
     })} />
   </head>
   <body>
+    <!-- Scroll progress bar — orange line at the top -->
+    <div id="scroll-progress" aria-hidden="true"></div>
+
     <slot />
 
     <script>
@@ -130,6 +133,104 @@ const ogImageAbs = new URL(ogImage, siteUrl).toString();
           onUpdate: () => { el.textContent = Math.round(obj.v).toString(); },
         });
       });
+
+      // ----------------------------------------------------------------------
+      // PREMIUM EFFECTS — all respect prefers-reduced-motion.
+      // ----------------------------------------------------------------------
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // (1) Scroll progress bar — scaleX from 0 → 1 across the page.
+      const progressBar = document.getElementById('scroll-progress');
+      if (progressBar && !reduceMotion) {
+        const updateProgress = () => {
+          const doc = document.documentElement;
+          const max = doc.scrollHeight - window.innerHeight;
+          const ratio = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
+          progressBar.style.transform = `scaleX(${ratio})`;
+        };
+        updateProgress();
+        window.addEventListener('scroll', updateProgress, { passive: true });
+        window.addEventListener('resize', updateProgress);
+      }
+
+      // (2) Hero word cycler — rotate through brand adjectives every ~2.4s.
+      const heroWord = document.getElementById('hero-word');
+      if (heroWord && !reduceMotion) {
+        const words = ['sustainable', 'energy-efficient', 'future-ready', 'climate-smart'];
+        let idx = 0;
+        setInterval(() => {
+          heroWord.classList.add('is-swapping');
+          setTimeout(() => {
+            idx = (idx + 1) % words.length;
+            heroWord.textContent = words[idx];
+            heroWord.classList.remove('is-swapping');
+          }, 320);
+        }, 2400);
+      }
+
+      // (3) Cursor spotlight — soft brand glow follows the mouse on .cursor-spotlight sections.
+      if (!reduceMotion && window.matchMedia('(hover: hover)').matches) {
+        document.querySelectorAll<HTMLElement>('.cursor-spotlight').forEach((section) => {
+          section.addEventListener('mouseenter', () => section.classList.add('is-active'));
+          section.addEventListener('mouseleave', () => section.classList.remove('is-active'));
+          section.addEventListener('mousemove', (e) => {
+            const rect = section.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            section.style.setProperty('--mx', `${x}%`);
+            section.style.setProperty('--my', `${y}%`);
+          });
+        });
+      }
+
+      // (4) Shine sweep on scroll-into-view — works on touch + mouse.
+      //     One diagonal highlight slides across each card the first time it
+      //     becomes visible, then the card stays in a soft "lifted" state.
+      if (!reduceMotion && 'IntersectionObserver' in window) {
+        const shineObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+              // Slight stagger so neighbouring cards don't shine in unison
+              const delay = (i % 5) * 80;
+              setTimeout(() => entry.target.classList.add('is-shining'), delay);
+              shineObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.25 });
+        document.querySelectorAll<HTMLElement>('[data-shine]').forEach((el) => shineObserver.observe(el));
+      }
+
+      // (5) Magnetic buttons — gentle pull toward cursor on [data-magnetic].
+      if (!reduceMotion && window.matchMedia('(hover: hover)').matches) {
+        const PULL = 0.28; // 0..1, fraction of distance to follow
+        document.querySelectorAll<HTMLElement>('[data-magnetic]').forEach((btn) => {
+          const parent = btn; // listen on the button itself
+          parent.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const dx = (e.clientX - cx) * PULL;
+            const dy = (e.clientY - cy) * PULL;
+            btn.style.transform = `translate(${dx}px, ${dy}px)`;
+          });
+          parent.addEventListener('mouseleave', () => {
+            btn.style.transform = '';
+          });
+        });
+      }
+
+      // Safety net: if the GSAP reveal animations haven't fired for any reason
+      // (very fast scroll, Lenis/ScrollTrigger sync hiccup, etc.) any element
+      // still at near-zero opacity after 6s gets forcibly revealed so the user
+      // never sees a permanently blank section.
+      setTimeout(() => {
+        document.querySelectorAll<HTMLElement>('[data-reveal], [data-stagger] > *').forEach((el) => {
+          if (parseFloat(getComputedStyle(el).opacity) < 0.1) {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+          }
+        });
+      }, 6000);
 
       // Nav state-awareness — transparent over the hero, solid white frosted
       // once the user has scrolled past it. Driven by IntersectionObserver

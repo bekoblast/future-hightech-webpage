@@ -149,3 +149,115 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .brand-icon { animation: none; }
 }
+
+/* ---------------------------------------------------------------------------
+   PREMIUM EFFECTS — opt-in via class / data-attribute, JS-driven
+--------------------------------------------------------------------------- */
+
+/* (1) Scroll progress bar — thin orange line at the very top of the page.
+       The transform-origin + scaleX trick is GPU-cheap. */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #EF6822, #ffb985);
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 60;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* (2) Hero word cycler — inline-block so we can animate the swap smoothly. */
+#hero-word {
+  display: inline-block;
+  min-width: 0;
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+#hero-word.is-swapping {
+  opacity: 0;
+  transform: translateY(-12px);
+}
+
+/* (3) Cursor spotlight — a radial brand glow that follows the mouse on
+       dark sections. CSS variables --mx / --my are updated by JS. */
+.cursor-spotlight {
+  position: relative;
+}
+.cursor-spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    480px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(239, 104, 34, 0.18),
+    rgba(239, 104, 34, 0.06) 25%,
+    transparent 60%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 400ms ease;
+  z-index: 1;
+}
+.cursor-spotlight.is-active::before {
+  opacity: 1;
+}
+/* Lift non-absolute section content above the spotlight overlay.
+   `:not(.absolute)` keeps Tailwind-positioned background layers (bg-grid,
+   blurred blobs) out of normal flow so they don't push real content down. */
+.cursor-spotlight > *:not(.absolute) {
+  position: relative;
+  z-index: 2;
+}
+
+/* (4) Shine sweep on visible — diagonal highlight slides across each card
+       once when it enters the viewport. Works on every device (no hover
+       required). The lift on intersection uses box-shadow (not transform)
+       so it doesn't conflict with GSAP's per-frame transform animations. */
+[data-shine] {
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+[data-shine]::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(
+    115deg,
+    transparent 35%,
+    rgba(239, 104, 34, 0.10) 47%,
+    rgba(255, 255, 255, 0.22) 50%,
+    rgba(239, 104, 34, 0.10) 53%,
+    transparent 65%
+  );
+  transform: translateX(-110%);
+  pointer-events: none;
+  z-index: 6;
+  border-radius: inherit;
+}
+[data-shine].is-shining::before {
+  animation: shine-sweep 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+[data-shine].is-shining {
+  box-shadow: 0 14px 36px -10px rgba(239, 104, 34, 0.18);
+}
+@keyframes shine-sweep {
+  to { transform: translateX(110%); }
+}
+
+/* (5) Magnetic buttons — JS sets translate; CSS just provides the ease. */
+[data-magnetic] {
+  transition: transform 250ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #scroll-progress { display: none; }
+  .cursor-spotlight::before { display: none; }
+  [data-shine]::before { display: none; }
+  [data-shine],
+  [data-magnetic] { transform: none !important; }
+}
