@@ -669,6 +669,36 @@ const navLinks = [
         </form>
       </div>
     </div>
+
+    <!-- Map: Future Hitech HQ in Al Nahda 1, Dubai -->
+    <div class="container-x relative mt-16 md:mt-20" data-reveal>
+      <div class="flex flex-wrap items-end justify-between gap-3 mb-5">
+        <div>
+          <div class="text-xs uppercase tracking-[0.25em] text-orange-400 font-semibold">Visit our office</div>
+          <h3 class="font-display text-2xl md:text-3xl font-bold mt-2">Saheel Tower 2 · Al Nahda 1</h3>
+        </div>
+        <a
+          href="https://www.google.com/maps?q=25.286316560032827,55.360547960926326"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 rounded-full ring-1 ring-white/30 hover:bg-white/10 px-4 py-2 text-xs font-semibold transition-colors"
+        >
+          Open in Google Maps
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5h5v5M19 5L10 14M9 5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg>
+        </a>
+      </div>
+      <div class="brand-border rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-2xl">
+        <iframe
+          title="Future Hitech office location"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=55.357548,25.283317,55.363548,25.289317&layer=mapnik&marker=25.286317,55.360548"
+          width="100%"
+          height="380"
+          style="border:0; display:block; filter: invert(0.92) hue-rotate(180deg) brightness(0.95) contrast(1.05);"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    </div>
   </section>
 
   <!-- =========================== FOOTER =========================== -->
@@ -682,6 +712,22 @@ const navLinks = [
         <div class="text-xs text-white/50">
           {company.contact.website}
         </div>
+      </div>
+      <!-- Site credit -->
+      <div class="mt-8 pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs text-white/40">
+        <div>
+          Designed & developed by
+          <a
+            href="https://beko-cloud.work"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-semibold text-orange-400 hover:text-orange-300 transition-colors ml-1"
+          >
+            B-Smart Solutions
+            <svg class="inline w-3 h-3 -mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5h5v5M19 5L10 14"/></svg>
+          </a>
+        </div>
+        <div>All rights reserved · {new Date().getFullYear()}</div>
       </div>
     </div>
   </footer>

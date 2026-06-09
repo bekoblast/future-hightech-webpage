@@ -266,17 +266,7 @@ body {
   24%  { transform: translateX(110%); }
   100% { transform: translateX(110%); } /* idle off-screen for the rest */
 }
-/* Stagger neighbours so a row/grid of cards doesn't shine in unison */
-[data-shine]:nth-child(5n + 1) { animation-delay: 0s; }
-[data-shine]:nth-child(5n + 2) { animation-delay: 1s; }
-[data-shine]:nth-child(5n + 3) { animation-delay: 2s; }
-[data-shine]:nth-child(5n + 4) { animation-delay: 3s; }
-[data-shine]:nth-child(5n + 5) { animation-delay: 4s; }
-[data-shine]:nth-child(5n + 1)::before { animation-delay: 0s; }
-[data-shine]:nth-child(5n + 2)::before { animation-delay: 1s; }
-[data-shine]:nth-child(5n + 3)::before { animation-delay: 2s; }
-[data-shine]:nth-child(5n + 4)::before { animation-delay: 3s; }
-[data-shine]:nth-child(5n + 5)::before { animation-delay: 4s; }
+/* All shines fire in unison — every card / photo sweeps together every 5s */
 
 /* (5) Magnetic buttons — JS sets translate; CSS just provides the ease. */
 [data-magnetic] {
