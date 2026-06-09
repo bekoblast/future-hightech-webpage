@@ -175,9 +175,30 @@ const navLinks = [
   </section>
 
   <!-- =========================== SERVICES =========================== -->
-  <section id="services" class="cursor-spotlight py-16 md:py-32 bg-navy-900 text-white relative overflow-hidden">
-    <div class="absolute inset-0 bg-grid opacity-20"></div>
-    <div class="absolute -top-40 right-0 w-[500px] h-[500px] rounded-full bg-orange-500/15 blur-3xl"></div>
+  <section id="services" class="cursor-spotlight py-16 md:py-32 bg-blueprint text-white relative overflow-hidden">
+    <!-- Subtle architectural drawing accents in the corners -->
+    <svg aria-hidden="true" class="absolute top-8 right-8 w-24 h-24 text-white/15 hidden sm:block" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.6" stroke-linecap="round">
+      <circle cx="50" cy="50" r="38"/>
+      <circle cx="50" cy="50" r="28"/>
+      <circle cx="50" cy="50" r="2" fill="currentColor"/>
+      <path d="M50 8 L50 18 M50 82 L50 92 M8 50 L18 50 M82 50 L92 50"/>
+      <path d="M50 12 L45 22 L55 22 Z" fill="currentColor" stroke="none"/>
+      <text x="50" y="6" text-anchor="middle" font-size="5" fill="currentColor" stroke="none" font-family="monospace">N</text>
+    </svg>
+    <svg aria-hidden="true" class="absolute bottom-8 left-8 w-32 h-10 text-white/15 hidden sm:block" viewBox="0 0 200 60" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round">
+      <line x1="5" y1="30" x2="195" y2="30"/>
+      <g>
+        <line x1="5" y1="22" x2="5" y2="38"/>
+        <line x1="45" y1="25" x2="45" y2="35"/>
+        <line x1="85" y1="22" x2="85" y2="38"/>
+        <line x1="125" y1="25" x2="125" y2="35"/>
+        <line x1="165" y1="22" x2="165" y2="38"/>
+        <line x1="195" y1="22" x2="195" y2="38"/>
+      </g>
+      <text x="100" y="52" text-anchor="middle" font-size="7" fill="currentColor" stroke="none" font-family="monospace">SCALE 1:100</text>
+    </svg>
+    <!-- Soft orange glow for the cursor spotlight + a calm ambient blob -->
+    <div class="absolute -top-40 right-0 w-[500px] h-[500px] rounded-full bg-orange-500/10 blur-3xl"></div>
 
     <div class="container-x relative">
       <div class="max-w-3xl" data-reveal>

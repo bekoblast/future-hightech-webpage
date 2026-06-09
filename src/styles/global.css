@@ -42,6 +42,28 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
+   Blueprint paper effect.
+   - Slightly cyan-leaning deep blue base, evocative of engineering drawings.
+   - TWO grid layers stack to mimic a real blueprint sheet:
+       80×80 major grid (white at ~7% opacity)
+       16×16 minor grid (white at ~2.5% opacity)
+   - A faint vignette darkens the edges so the section reads as a "page".
+--------------------------------------------------------------------------- */
+.bg-blueprint {
+  background-color: #0d3055;
+  background-image:
+    /* Vignette */
+    radial-gradient(ellipse at center, transparent 35%, rgba(5, 18, 38, 0.55) 100%),
+    /* Major grid */
+    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    /* Minor grid */
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 100% 100%, 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+}
+
+/* ---------------------------------------------------------------------------
    Nav state: "over hero" (transparent, white logo + links)
    vs. "scrolled past hero" (white frosted bg, dark logo + navy links).
    The .is-scrolled class is toggled by Base.astro via IntersectionObserver.
