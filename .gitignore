@@ -14,3 +14,8 @@ HITECH 20241 Copy.pdf
 *.pdf
 # ...except the compressed brochure that ships as a public download
 !public/future-hitech-company-profile.pdf
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
