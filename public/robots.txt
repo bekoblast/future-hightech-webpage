@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://gilded-alfajores-2c3f21.netlify.app/sitemap.xml
+Sitemap: https://future-hightech-webpage.beko1986.workers.dev/sitemap.xml

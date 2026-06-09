@@ -1,9 +1,10 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 
-// Update this to your production URL when the custom domain is connected.
-// For now it's the Netlify subdomain so OG images and canonical URLs resolve correctly.
-const SITE_URL = 'https://gilded-alfajores-2c3f21.netlify.app';
+// Update this when the custom domain is connected (future-hitech.com).
+// For now it's the Cloudflare Workers subdomain so OG images, canonical
+// URLs, and sitemap entries resolve to the live deploy.
+const SITE_URL = 'https://future-hightech-webpage.beko1986.workers.dev';
 
 export default defineConfig({
   // Explicit static output — this is a fully prerendered single-page site.

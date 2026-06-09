@@ -15,7 +15,7 @@ const {
 } = Astro.props;
 
 // Resolve absolute URLs against the configured site (set in astro.config.mjs)
-const siteUrl = Astro.site ?? new URL('https://gilded-alfajores-2c3f21.netlify.app');
+const siteUrl = Astro.site ?? new URL('https://future-hightech-webpage.beko1986.workers.dev');
 const canonical = new URL(Astro.url.pathname, siteUrl).toString();
 const ogImageAbs = new URL(ogImage, siteUrl).toString();
 ---
