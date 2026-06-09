@@ -6,6 +6,7 @@ dist
 !.env.example
 *.log
 .DS_Store
+.claude/
 
 # Source material (kept local, not committed)
 _input/
