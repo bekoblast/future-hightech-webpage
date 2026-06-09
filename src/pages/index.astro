@@ -76,7 +76,7 @@ const navLinks = [
         <!-- Bento photo collage showing breadth of work -->
         <div class="grid grid-cols-2 grid-rows-3 gap-3 aspect-[4/5] rounded-3xl">
           <!-- Big tall left: engineers + blueprints (design phase) -->
-          <div class="row-span-2 brand-border-3 relative rounded-2xl overflow-hidden shadow-2xl group">
+          <div data-shine class="row-span-2 brand-border-3 relative rounded-2xl overflow-hidden shadow-2xl group">
             <img src="/img/stock/team-blueprints.jpg" alt="Future Hitech engineers reviewing project plans" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="eager"/>
             <div class="absolute inset-0 bg-gradient-to-t from-navy-900/70 via-transparent"></div>
             <div class="absolute bottom-3 left-3 right-3">
@@ -88,28 +88,28 @@ const navLinks = [
           </div>
 
           <!-- Top right: villa exterior (scale) -->
-          <div class="brand-border relative rounded-2xl overflow-hidden shadow-xl group">
+          <div data-shine class="brand-border relative rounded-2xl overflow-hidden shadow-xl group">
             <img src="/img/projects/p13.jpeg" alt="Modern villa exterior" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="eager"/>
             <div class="absolute inset-0 bg-gradient-to-t from-navy-900/60 via-transparent"></div>
             <div class="absolute bottom-2 left-2 rounded-full bg-navy-900/80 backdrop-blur px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-orange-300">Build</div>
           </div>
 
           <!-- Middle right: electrical work (craft) -->
-          <div class="brand-border relative rounded-2xl overflow-hidden shadow-xl group">
+          <div data-shine class="brand-border relative rounded-2xl overflow-hidden shadow-xl group">
             <img src="/img/stock/electrician-cables.jpg" alt="Electrical panel installation" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="eager"/>
             <div class="absolute inset-0 bg-gradient-to-t from-navy-900/60 via-transparent"></div>
             <div class="absolute bottom-2 left-2 rounded-full bg-navy-900/80 backdrop-blur px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-orange-300">Install</div>
           </div>
 
           <!-- Bottom left: luxury marble staircase (electrical + finish) -->
-          <div class="brand-border relative rounded-2xl overflow-hidden shadow-xl group">
+          <div data-shine class="brand-border relative rounded-2xl overflow-hidden shadow-xl group">
             <img src="/img/projects/p07.jpeg" alt="Luxury marble staircase with LED lighting" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="eager"/>
             <div class="absolute inset-0 bg-gradient-to-t from-navy-900/60 via-transparent"></div>
             <div class="absolute bottom-2 left-2 rounded-full bg-navy-900/80 backdrop-blur px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-orange-300">Lighting</div>
           </div>
 
           <!-- Bottom right: modern kitchen (residential MEP) -->
-          <div class="brand-border relative rounded-2xl overflow-hidden shadow-xl group">
+          <div data-shine class="brand-border relative rounded-2xl overflow-hidden shadow-xl group">
             <img src="/img/projects/p06.jpeg" alt="Modern residential kitchen with integrated MEP" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="eager"/>
             <div class="absolute inset-0 bg-gradient-to-t from-navy-900/60 via-transparent"></div>
             <div class="absolute bottom-2 left-2 rounded-full bg-navy-900/80 backdrop-blur px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-orange-300">Finish</div>
@@ -145,7 +145,7 @@ const navLinks = [
         <h2 class="font-display text-4xl md:text-5xl font-extrabold text-navy-900 mt-3 leading-tight text-balance">
           A leading provider of comprehensive MEP services.
         </h2>
-        <div class="mt-8 brand-border-3 relative aspect-[4/5] rounded-3xl overflow-hidden">
+        <div data-shine class="mt-8 brand-border-3 relative aspect-[4/5] rounded-3xl overflow-hidden">
           <img src="/img/stock/engineer-plans.jpg" alt="Engineer reviewing project plans" class="absolute inset-0 w-full h-full object-cover" loading="lazy"/>
           <div class="absolute inset-0 bg-gradient-to-tr from-navy-900/60 via-transparent to-orange-500/15"></div>
           <div class="absolute bottom-5 left-5 right-5">
@@ -280,7 +280,7 @@ const navLinks = [
         </h2>
 
         <div class="mt-10 relative">
-          <div class="brand-border-3 relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
+          <div data-shine class="brand-border-3 relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
             <img src="/img/stock/electrician-cables.jpg" alt="Future Hitech engineer at electrical panel" class="absolute inset-0 w-full h-full object-cover" loading="lazy"/>
             <div class="absolute inset-0 bg-gradient-to-t from-orange-700/60 via-transparent to-transparent"></div>
           </div>
@@ -321,7 +321,7 @@ const navLinks = [
 
       <div class="mt-10 md:mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-6" data-stagger>
         {sectors.map(s => (
-          <article class="group brand-border relative overflow-hidden rounded-3xl bg-navy-800 aspect-[3/4]">
+          <article data-shine class="group brand-border relative overflow-hidden rounded-3xl bg-navy-800 aspect-[3/4]">
             <img src={s.photo} alt={s.title} class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-500" loading="lazy" onerror="this.style.display='none'"/>
             <div class="absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/60 to-transparent"></div>
             <!-- top-right icon badge -->
@@ -358,6 +358,7 @@ const navLinks = [
           <button
             type="button"
             data-gallery-open
+            data-shine
             data-index={i}
             class="group brand-border relative aspect-square overflow-hidden rounded-xl bg-navy-100 cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-orange-500"
             aria-label={`Open project ${p.n}`}

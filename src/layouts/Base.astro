@@ -183,22 +183,8 @@ const ogImageAbs = new URL(ogImage, siteUrl).toString();
         });
       }
 
-      // (4) Shine sweep on scroll-into-view — works on touch + mouse.
-      //     One diagonal highlight slides across each card the first time it
-      //     becomes visible, then the card stays in a soft "lifted" state.
-      if (!reduceMotion && 'IntersectionObserver' in window) {
-        const shineObserver = new IntersectionObserver((entries) => {
-          entries.forEach((entry, i) => {
-            if (entry.isIntersecting) {
-              // Slight stagger so neighbouring cards don't shine in unison
-              const delay = (i % 5) * 80;
-              setTimeout(() => entry.target.classList.add('is-shining'), delay);
-              shineObserver.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.25 });
-        document.querySelectorAll<HTMLElement>('[data-shine]').forEach((el) => shineObserver.observe(el));
-      }
+      // (4) Continuous shine on [data-shine] — driven entirely by CSS now,
+      //     no JS needed. Kept here as a comment for discoverability.
 
       // (5) Magnetic buttons — gentle pull toward cursor on [data-magnetic].
       if (!reduceMotion && window.matchMedia('(hover: hover)').matches) {
