@@ -1,0 +1,18 @@
+# Cross-platform headers file.
+# Read natively by Cloudflare Pages AND Netlify (overrides netlify.toml).
+# Same caching strategy + security headers we had in netlify.toml.
+
+# Long-lived cache for fingerprinted Astro assets
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Long-lived cache for images (filenames don't change once committed)
+/img/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Sensible security headers for the whole site
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
